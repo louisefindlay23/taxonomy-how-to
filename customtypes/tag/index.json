@@ -1,0 +1,21 @@
+{
+  "id": "tag",
+  "label": "Category",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": { "config": { "label": "UID" }, "type": "UID" },
+      "name": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Name",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph,heading1,heading2,heading3"
+        }
+      }
+    }
+  }
+}
