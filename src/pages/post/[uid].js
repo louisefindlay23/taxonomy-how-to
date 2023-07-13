@@ -14,15 +14,15 @@ export default function Post({ post }) {
       <Head>
         <title>{post.data.meta_title}</title>
       </Head>
-      {post.data.tag_group.map((tag) => {
-        return (
-          <ul>
+      <ul>
+        {post.data.tag_group.map((tag) => {
+          return (
             <li key={JSON.stringify(tag.tag)}>
               <PrismicText field={tag.tag.data.name} />
             </li>
-          </ul>
-        );
-      })}
+          );
+        })}
+      </ul>
       <SliceZone slices={post.data.slices} components={components} />
     </main>
   );
