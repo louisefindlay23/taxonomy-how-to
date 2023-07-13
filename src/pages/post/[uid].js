@@ -15,10 +15,11 @@ export default function Post({ post }) {
         <title>{post.data.meta_title}</title>
       </Head>
       <ul>
-        {post.data.tag_group.map((tag) => {
+        {post.data.categories.map((category) => {
+          console.info(category);
           return (
-            <li key={JSON.stringify(tag.tag)}>
-              <PrismicText field={tag.tag.data.name} />
+            <li key={JSON.stringify(category.category)}>
+              <PrismicText field={category.category.data.name} />
             </li>
           );
         })}
