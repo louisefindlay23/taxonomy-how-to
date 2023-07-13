@@ -20,22 +20,22 @@ export default function Index({ page, tags, specificTagPages }) {
         <title>{page.data.meta_title}</title>
       </Head>
       <SliceZone slices={page.data.slices} components={components} />
-      {tags.map((tag) => {
-        return (
-          <ul>
-            <li key={JSON.stringify(tag)}>
+      <ul>
+        {tags.map((tag) => {
+          return (
+            <li key={tag.id}>
               <PrismicText field={tag.data.name} />
             </li>
-          </ul>
-        );
-      })}
-      {specificTagPages.map((pages) => {
-        return (
-          <ul>
-            <li key={JSON.stringify(pages)}>{pages.data.meta_title}</li>
-          </ul>
-        );
-      })}
+          );
+        })}
+      </ul>
+      ;
+      <ul>
+        {specificTagPages.map((pages) => {
+          return <li key={pages.id}>{pages.data.meta_title}</li>;
+        })}
+      </ul>
+      ;
     </main>
   );
 }
@@ -49,7 +49,9 @@ export async function getStaticProps({ previewData }) {
   const page = await client.getByUID("page", "home");
   const tags = await client.getAllByType("tag");
   const specificTagPages = await client.getAllByType("post", {
-    filters: [prismic.filter.at("my.post.tag_group.tag", "ZJl--BEAACIAX9oL")],
+    filters: [
+      prismic.filter.at("my.post.categories.category", "ZJl--BEAACIAX9oL"),
+    ],
   });
 
   return {
