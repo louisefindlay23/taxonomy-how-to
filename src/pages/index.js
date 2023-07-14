@@ -50,7 +50,7 @@ export async function getStaticProps({ previewData }) {
   const tags = await client.getAllByType("tag");
   const specificTagPages = await client.getAllByType("post", {
     filters: [
-      prismic.filter.at("my.post.categories.category", "ZJl--BEAACIAX9oL"),
+      prismic.filter.at("my.post.category_group.category", "ZJl--BEAACIAX9oL"),
     ],
   });
 

@@ -15,8 +15,7 @@ export default function Post({ post }) {
         <title>{post.data.meta_title}</title>
       </Head>
       <ul>
-        {post.data.categories.map((category) => {
-          console.info(category);
+        {post.data.category_group.map((category) => {
           return (
             <li key={JSON.stringify(category.category)}>
               <PrismicText field={category.category.data.name} />
