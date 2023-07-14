@@ -3,8 +3,8 @@ import { SliceZone } from "@prismicio/react";
 import { PrismicText } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
-import { createClient } from "@/prismicio";
-import { components } from "@/slices";
+import { createClient } from "./prismicio";
+import { components } from "./slices";
 
 /**
  * This component renders your homepage.
@@ -13,7 +13,15 @@ import { components } from "@/slices";
  *
  * Use the SliceZone to render the content of the page.
  */
-export default function Index({ page, tags, specificTagPages }) {
+export default async function Index() {
+  const client = createClient();
+  const page = await client.getByUID("page", "home");
+  const tags = await client.getAllByType("tag");
+  const specificTagPages = await client.getAllByType("post", {
+    filters: [
+      prismic.filter.at("my.post.category_group.category", tags[0].id),
+    ],
+  });
   return (
     <main>
       <Head>
@@ -38,27 +46,4 @@ export default function Index({ page, tags, specificTagPages }) {
       ;
     </main>
   );
-}
-
-export async function getStaticProps({ previewData }) {
-  /**
-   * The client queries content from the Prismic API
-   */
-  const client = createClient({ previewData });
-
-  const page = await client.getByUID("page", "home");
-  const tags = await client.getAllByType("tag");
-  const specificTagPages = await client.getAllByType("post", {
-    filters: [
-      prismic.filter.at("my.post.categories.category", "ZJl--BEAACIAX9oL"),
-    ],
-  });
-
-  return {
-    props: {
-      page,
-      tags,
-      specificTagPages,
-    },
-  };
 }
