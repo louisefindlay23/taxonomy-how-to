@@ -17,7 +17,7 @@ export default async function Post({ params }) {
       </Head>
       <ul>
         {post.data.category_group.map((category) => {
-            console.info(category);
+          console.info(category);
           return (
             <li key={JSON.stringify(category.category)}>
               <PrismicText field={category.category.data.name} />

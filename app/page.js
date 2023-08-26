@@ -18,16 +18,17 @@ export default async function Index() {
   const page = await client.getByUID("page", "home");
   const tags = await client.getAllByType("tag");
   const specificTagPages = await client.getAllByType("post", {
-    filters: [
-      prismic.filter.at("my.post.category_group.category", tags[0].id),
-    ],
+    filters: [prismic.filter.at("my.post.category_group.category", tags[0].id)],
   });
+
   return (
     <main>
       <Head>
         <title>{page.data.meta_title}</title>
       </Head>
+
       <SliceZone slices={page.data.slices} components={components} />
+
       <ul>
         {tags.map((tag) => {
           return (
@@ -37,13 +38,12 @@ export default async function Index() {
           );
         })}
       </ul>
-      ;
+
       <ul>
         {specificTagPages.map((pages) => {
           return <li key={pages.id}>{pages.data.meta_title}</li>;
         })}
       </ul>
-      ;
     </main>
   );
 }
