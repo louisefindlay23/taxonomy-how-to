@@ -2,99 +2,45 @@
 
 import type * as prismic from "@prismicio/client";
 
-type Simplify<T> = {
-  [KeyType in keyof T]: T[KeyType];
-};
-/** Content for Development documents */
-interface DevelopmentDocumentData {
-  /**
-   * Development Image field in *Development*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: development.development_image
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
-   */
-  development_image: prismic.ImageField<never>;
-  /**
-   * Slice Zone field in *Development*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: development.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/slices
-   *
-   */
-  slices: prismic.SliceZone<DevelopmentDocumentDataSlicesSlice>;
-  /**
-   * Meta Description field in *Development*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: development.meta_description
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
-  meta_description: prismic.KeyTextField;
-  /**
-   * Meta Image field in *Development*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: development.meta_image
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
-   */
-  meta_image: prismic.ImageField<never>;
-  /**
-   * Meta Title field in *Development*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: development.meta_title
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
-  meta_title: prismic.KeyTextField;
-  /**
-   * Development Date field in *Development*
-   *
-   * - **Field Type**: Date
-   * - **Placeholder**: *None*
-   * - **API ID Path**: development.development_date
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/date
-   *
-   */
-  development_date: prismic.DateField;
-}
+type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
+
 /**
- * Slice for *Development → Slice Zone*
- *
+ * Content for Category documents
  */
-type DevelopmentDocumentDataSlicesSlice = never;
+interface CategoryDocumentData {
+  /**
+   * Name field in *Category*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: category.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  name: prismic.RichTextField;
+}
+
 /**
- * Development document from Prismic
+ * Category document from Prismic
  *
- * - **API ID**: `development`
+ * - **API ID**: `category`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/core-concepts/custom-types
+ * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
-export type DevelopmentDocument<Lang extends string = string> =
+export type CategoryDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<
-    Simplify<DevelopmentDocumentData>,
-    "development",
+    Simplify<CategoryDocumentData>,
+    "category",
     Lang
   >;
-/** Content for Page documents */
+
+type PageDocumentDataSlicesSlice = RichTextSlice;
+
+/**
+ * Content for Page documents
+ */
 interface PageDocumentData {
   /**
    * Slice Zone field in *Page*
@@ -103,10 +49,9 @@ interface PageDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: page.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/slices
-   *
+   * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<PageDocumentDataSlicesSlice>;
+  slices: prismic.SliceZone<PageDocumentDataSlicesSlice>
   /**
    * Meta Title field in *Page*
    *
@@ -114,42 +59,55 @@ interface PageDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: page.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
   meta_title: prismic.KeyTextField;
 }
-/**
- * Slice for *Page → Slice Zone*
- *
- */
-type PageDocumentDataSlicesSlice = RichTextSlice;
+
 /**
  * Page document from Prismic
  *
  * - **API ID**: `page`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/core-concepts/custom-types
+ * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
-/** Content for Post documents */
+
+/**
+ * Item in *Post → Categories*
+ */
+export interface PostDocumentDataCategoriesItem {
+  /**
+   * Category field in *Post → Categories*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.categories[].category
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  category: prismic.ContentRelationshipField<"category">;
+}
+
+type PostDocumentDataSlicesSlice = RichTextSlice;
+
+/**
+ * Content for Post documents
+ */
 interface PostDocumentData {
   /**
-   * Category Group field in *Post*
+   * Categories field in *Post*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: post.category_group[]
+   * - **API ID Path**: post.categories[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/group
-   *
+   * - **Documentation**: https://prismic.io/docs/field#group
    */
-  category_group: prismic.GroupField<
-    Simplify<PostDocumentDataCategoryGroupItem>
-  >;
+  categories: prismic.GroupField<Simplify<PostDocumentDataCategoriesItem>>;
+
   /**
    * Slice Zone field in *Post*
    *
@@ -157,10 +115,9 @@ interface PostDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: post.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/slices
-   *
+   * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<PostDocumentDataSlicesSlice>;
+  slices: prismic.SliceZone<PostDocumentDataSlicesSlice>
   /**
    * Meta Title field in *Post*
    *
@@ -168,119 +125,70 @@ interface PostDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: post.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
   meta_title: prismic.KeyTextField;
 }
-/**
- * Item in Post → Category Group
- *
- */
-export interface PostDocumentDataCategoryGroupItem {
-  /**
-   * Category field in *Post → Category Group*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post.category_group[].category
-   * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
-   *
-   */
-  category: prismic.ContentRelationshipField<"tag">;
-}
-/**
- * Slice for *Post → Slice Zone*
- *
- */
-type PostDocumentDataSlicesSlice = RichTextSlice;
+
 /**
  * Post document from Prismic
  *
  * - **API ID**: `post`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/core-concepts/custom-types
+ * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
 export type PostDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PostDocumentData>, "post", Lang>;
-/** Content for Category documents */
-interface TagDocumentData {
-  /**
-   * Name field in *Category*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: tag.name
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-   *
-   */
-  name: prismic.RichTextField;
-}
+
+export type AllDocumentTypes = CategoryDocument | PageDocument | PostDocument;
+
 /**
- * Category document from Prismic
- *
- * - **API ID**: `tag`
- * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/core-concepts/custom-types
- *
- * @typeParam Lang - Language API ID of the document.
+ * Primary content in *RichText → Primary*
  */
-export type TagDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<Simplify<TagDocumentData>, "tag", Lang>;
-export type AllDocumentTypes =
-  | DevelopmentDocument
-  | PageDocument
-  | PostDocument
-  | TagDocument;
-/**
- * Primary content in RichText → Primary
- *
- */
-interface RichTextSliceDefaultPrimary {
+export interface RichTextSliceDefaultPrimary {
   /**
    * Content field in *RichText → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Lorem ipsum...
    * - **API ID Path**: rich_text.primary.content
-   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-   *
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   content: prismic.RichTextField;
 }
+
 /**
  * Default variation for RichText Slice
  *
  * - **API ID**: `default`
- * - **Description**: `RichText`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: RichText
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type RichTextSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<RichTextSliceDefaultPrimary>,
   never
 >;
+
 /**
  * Slice variation for *RichText*
- *
  */
 type RichTextSliceVariation = RichTextSliceDefault;
+
 /**
  * RichText Shared Slice
  *
  * - **API ID**: `rich_text`
- * - **Description**: `RichText`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: RichText
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type RichTextSlice = prismic.SharedSlice<
   "rich_text",
   RichTextSliceVariation
 >;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -288,25 +196,21 @@ declare module "@prismicio/client" {
       options?: prismic.ClientConfig
     ): prismic.Client<AllDocumentTypes>;
   }
+
   namespace Content {
     export type {
-      DevelopmentDocumentData,
-      DevelopmentDocumentDataSlicesSlice,
-      DevelopmentDocument,
+      CategoryDocument,
+      CategoryDocumentData,
+      PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
-      PageDocument,
-      PostDocumentData,
-      PostDocumentDataCategoryGroupItem,
-      PostDocumentDataSlicesSlice,
       PostDocument,
-      TagDocumentData,
-      TagDocument,
+      PostDocumentData,
+      PostDocumentDataSlicesSlice,
       AllDocumentTypes,
-      RichTextSliceDefaultPrimary,
-      RichTextSliceDefault,
-      RichTextSliceVariation,
       RichTextSlice,
+      RichTextSliceVariation,
+      RichTextSliceDefault,
     };
   }
 }

@@ -2,8 +2,8 @@ import Head from "next/head";
 import { SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
-import { createClient } from "../prismicio";
-import { components } from "../slices";
+import { createClient } from "@/prismicio";
+import { components } from "@/slices";
 
 export default async function Page({ params }) {
   const client = createClient();

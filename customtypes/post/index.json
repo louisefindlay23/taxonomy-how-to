@@ -6,18 +6,23 @@
   "status": true,
   "json": {
     "Main": {
-      "uid": { "config": { "label": "UID" }, "type": "UID" },
-      "category_group": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "categories": {
         "type": "Group",
         "config": {
-          "label": "Category Group",
+          "label": "Categories",
           "fields": {
             "category": {
               "type": "Link",
               "config": {
                 "label": "Category",
                 "select": "document",
-                "customtypes": ["tag"]
+                "customtypes": ["category"]
               }
             }
           }
@@ -26,7 +31,13 @@
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
-        "config": { "choices": { "rich_text": { "type": "SharedSlice" } } }
+        "config": {
+          "choices": {
+            "rich_text": {
+              "type": "SharedSlice"
+            }
+          }
+        }
       }
     },
     "SEO & Metadata": {
