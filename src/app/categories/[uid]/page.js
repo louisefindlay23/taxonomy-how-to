@@ -1,6 +1,16 @@
 import { PrismicNextLink } from "@prismicio/next";
-import { createClient } from "@/prismicio";
 import * as prismic from "@prismicio/client";
+
+import { createClient } from "@/prismicio";
+
+export async function generateMetadata({ params }) {
+  const client = createClient();
+  const category = await client.getByUID("category", params.uid);
+
+  return {
+    title: `${prismic.asText(category.data.name)} - Taxonomy How-to`,
+  };
+}
 
 export default async function Category({ params }) {
   const client = createClient();

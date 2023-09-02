@@ -5,6 +5,15 @@ import * as prismic from "@prismicio/client";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 
+export async function generateMetadata({ params }) {
+  const client = createClient();
+  const post = await client.getByUID("post", params.uid);
+
+  return {
+    title: `${post.data.meta_title} - Taxonomy How-to`,
+  };
+}
+
 export default async function Page({ params }) {
   const client = createClient();
   const page = await client.getByUID("page", params.uid);

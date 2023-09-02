@@ -4,6 +4,15 @@ import { SliceZone, PrismicText } from "@prismicio/react";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 
+export async function generateMetadata({ params }) {
+  const client = createClient();
+  const post = await client.getByUID("post", params.uid);
+
+  return {
+    title: `${post.data.meta_title} - Taxonomy How-to`,
+  };
+}
+
 export default async function Post({ params }) {
   const client = createClient();
   const post = await client.getByUID("post", params.uid, {

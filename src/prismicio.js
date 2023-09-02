@@ -30,7 +30,7 @@ const routes = [
   {
     type: "category",
     path: "/categories/:uid",
-  }
+  },
 ];
 
 /**

@@ -2,7 +2,11 @@ import { PrismicNextLink } from "@prismicio/next";
 import { PrismicText } from "@prismicio/react";
 import { createClient } from "@/prismicio";
 
-export default async function Home() {
+export const metadata = {
+  title: "Categories - Taxonomy How-to",
+};
+
+export default async function Categories() {
   const client = createClient();
   const categories = await client.getAllByType("category");
 
