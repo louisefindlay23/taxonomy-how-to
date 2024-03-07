@@ -25,6 +25,30 @@ export default async function Category({ params }) {
 
   return (
     <main>
+      <h2>{params.uid} Category</h2>
+      <p>
+        To create a page for each category, in the app directory, create a file
+        at app/category/[uid]/page.js.
+      </p>
+      <p>
+        To create a list of pages in a category, in page.js, retrieve the
+        category ID for the category you wish to filter for by using
+        client.getByUID().
+      </p>
+      <p>
+        Then query all documents with the page type you wish to display and use
+        the at() filter with the IDs of the page type, group field, content
+        relationship, and category, like this:
+      </p>
+      <p>Visit the Display a page's categories section for more details.</p>
+
+      <a
+        href="https://prismic.io/docs/taxonomies-nextjs#display-a-pages-categories"
+        target="_blank"
+      >
+        Display a page's categories
+      </a>
+      <p>See the categories below.</p>
       <ul>
         {pagesInCategory.map((page) => {
           return (

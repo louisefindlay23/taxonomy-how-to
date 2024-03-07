@@ -1,3 +1,5 @@
+import "/public/main.css";
+
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 

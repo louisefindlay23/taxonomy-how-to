@@ -7,7 +7,7 @@ import { components } from "@/slices";
 
 export async function generateMetadata({ params }) {
   const client = createClient();
-  const post = await client.getByUID("post", params.uid);
+  const post = await client.getByUID("page", params.uid);
 
   return {
     title: `${post.data.meta_title} - Taxonomy How-to`,

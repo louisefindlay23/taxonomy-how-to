@@ -1,0 +1,26 @@
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav ul {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+  justify-content: space-around;
+  width: 80%;
+  margin: 0 10%;
+}
+
+.nav ul li a {
+  display: block;
+  padding: 1.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 910px) {
+  .nav {
+    flex-direction: column;
+  }
+}

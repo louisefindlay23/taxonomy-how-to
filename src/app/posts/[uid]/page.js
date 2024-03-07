@@ -24,6 +24,8 @@ export default async function Post({ params }) {
       <Head>
         <title>{post.data.meta_title}</title>
       </Head>
+      <h2>{post.data.meta_title} Post</h2>
+      <h3>Categories</h3>
       <ul>
         {post.data.categories.map((category) => {
           return (

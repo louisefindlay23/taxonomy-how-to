@@ -1,15 +1,10 @@
 import { PrismicRichText } from "@prismicio/react";
-import styles from "./index.module.css";
 
 /**
  * @type {import("@prismicio/react").JSXMapSerializer}
  */
 const components = {
-  label: ({ node, children }) => {
-    if (node.data.label === "codespan") {
-      return <code>{children}</code>;
-    }
-  },
+  label: ({ node, children }) => {},
 };
 
 /**
@@ -19,8 +14,6 @@ const components = {
  */
 export default function RichText({ slice }) {
   return (
-    <section className={styles.richtext}>
-      <PrismicRichText field={slice.primary.content} components={components} />
-    </section>
+    <PrismicRichText field={slice.primary.content} components={components} />
   );
 }
