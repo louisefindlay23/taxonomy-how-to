@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
@@ -19,9 +18,6 @@ export default async function Page({ params }) {
   const page = await client.getByUID("page", params.uid);
   return (
     <main>
-      <Head>
-        <title>{page.data.meta_title}</title>
-      </Head>
       <SliceZone slices={page.data.slices} components={components} />
     </main>
   );
@@ -30,7 +26,7 @@ export default async function Page({ params }) {
 export async function generateStaticParams() {
   const client = createClient();
   const pages = await client.getAllByType("page", {
-    predicates: [prismic.filter.not("my.page.uid", "home")],
+    filters: [prismic.filter.not("my.page.uid", "home")],
   });
 
   return pages.map((page) => {

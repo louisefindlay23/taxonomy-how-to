@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { SliceZone, PrismicText } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
@@ -9,7 +8,7 @@ export async function generateMetadata({ params }) {
   const post = await client.getByUID("post", params.uid);
 
   return {
-    title: `${post.data.meta_title} - Taxonomy How-to`,
+    title: `${post.data.meta_title} Post - Taxonomy How-to`,
   };
 }
 
@@ -21,9 +20,6 @@ export default async function Post({ params }) {
 
   return (
     <main>
-      <Head>
-        <title>{post.data.meta_title}</title>
-      </Head>
       <h2>{post.data.meta_title} Post</h2>
       <h3>Categories</h3>
       <ul>

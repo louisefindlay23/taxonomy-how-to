@@ -1,17 +1,10 @@
 import { PrismicNextLink } from "@prismicio/next";
-import { SliceZone } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
-import { components } from "@/slices";
 
-export async function generateMetadata() {
-  const client = createClient();
-  const page = await client.getByUID("page", "home");
-
-  return {
-    title: `${page.data.meta_title} - Taxonomy How-to`,
-  };
-}
+export const metadata = {
+  title: "Posts - Taxonomy How-to",
+};
 
 export default async function PostPage() {
   const client = createClient();

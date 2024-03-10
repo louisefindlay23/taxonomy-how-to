@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
   const category = await client.getByUID("category", params.uid);
 
   return {
-    title: `${prismic.asText(category.data.name)} - Taxonomy How-to`,
+    title: `${prismic.asText(category.data.name)} Category - Taxonomy How-to`,
   };
 }
 
