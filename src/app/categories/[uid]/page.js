@@ -25,7 +25,7 @@ export default async function Category({ params }) {
 
   return (
     <main>
-      <h2>{params.uid} Category</h2>
+      <h2>{prismic.asText(category.data.name)} Category</h2>
       <p>
         To create a page for each category, in the app directory, create a file
         at app/category/[uid]/page.js.
@@ -48,7 +48,10 @@ export default async function Category({ params }) {
       >
         Display a page's categories
       </a>
-      <p>See the categories below.</p>
+      <p>
+        See the pages in the {prismic.asText(category.data.name)} category
+        below.
+      </p>
       <ul>
         {pagesInCategory.map((page) => {
           return (
